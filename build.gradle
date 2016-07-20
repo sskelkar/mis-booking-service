@@ -28,6 +28,14 @@ repositories {
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
     mavenLocal()
+	maven {
+	  name 'Maxxton Private repository'
+	  url 'http://mxt-maven01.newyse.maxxton/repository/internal'
+	  credentials {
+	    username 'microservices'
+	    password 'M1cr053rv1c35!'
+	  }
+	}    
 }
 
 
@@ -35,6 +43,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa:${spring_boot_version}")
     compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${spring_boot_version}")
+    compile("com.maxxton.util:maxxton-utils:${maxxton_util_version}")
     compile("joda-time:joda-time:${joda_time_version}")
 
     compile files('./lib/ojdbc6.jar')
