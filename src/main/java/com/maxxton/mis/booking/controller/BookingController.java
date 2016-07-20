@@ -14,7 +14,6 @@ import com.maxxton.mis.booking.service.BookingService;
 import com.maxxton.mis.booking.service.RoomService;
 
 @RestController
-@RequestMapping(value = "/mis/rooms")
 public class BookingController {
 
   @Autowired
@@ -23,19 +22,24 @@ public class BookingController {
   @Autowired
   private BookingService bookingService;
   
-  @RequestMapping(method=RequestMethod.GET)
+  @RequestMapping(value="/mis/rooms", method=RequestMethod.GET)
   public List<Room> getRooms() {
     return roomService.getAllRooms();
   }
   
-  @RequestMapping(value="/{roomId}/bookings", method=RequestMethod.GET)
+  @RequestMapping(value="/mis/rooms/{roomId}/bookings", method=RequestMethod.GET)
   public List<Booking> getBookingsForRoom(@PathVariable("roomId") Long roomId) {
     return bookingService.getBookingsForRoomId(roomId);
   }
   
-  @RequestMapping(value="/{roomId}/book", method=RequestMethod.POST)
+  @RequestMapping(value="/mis/rooms/{roomId}/book", method=RequestMethod.POST)
   public Long bookRoom(@PathVariable("roomId") Long roomId, Booking booking) {
     booking.setRoomId(roomId);
     return bookingService.bookRoom(booking);  
+  }
+  
+  @RequestMapping(value="/mis/bookings/{bookingId}", method=RequestMethod.DELETE)
+  public void cancelBooking(@PathVariable("bookingId") Long bookingId) {
+    bookingService.cancelBooking(bookingId);  
   }
 }

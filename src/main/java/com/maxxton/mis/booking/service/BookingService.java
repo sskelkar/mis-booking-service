@@ -46,4 +46,8 @@ public class BookingService {
     
     return false;
   }
+  
+  public void cancelBooking(Long bookingId) {
+    bookingRepository.delete(bookingRepository.findOne(bookingId));
+  }
 }
