@@ -4,6 +4,7 @@ import static com.maxxton.mis.booking.specifications.BookingSpecifications.hasRo
 import static com.maxxton.mis.booking.specifications.BookingSpecifications.isBookFromOnOrAfter;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class BookingService {
   private BookingRepository bookingRepository;
   
   public List<Booking> getBookingsForRoomId(Long roomId) {
-    return bookingRepository.findAll(hasRoomId(roomId));
+    Specifications<Booking> specifications =  where(hasRoomId(roomId)).and(isBookFromOnOrAfter(new Date()));
+    return bookingRepository.findAll(specifications);
   }
   
   public Long bookRoom(Booking booking) {
